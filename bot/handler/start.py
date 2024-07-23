@@ -73,7 +73,7 @@ async def send_result_in_student(msg: Message):
     await msg.answer(html_decoration.bold(await detail_student(msg.from_user.id)), parse_mode='HTML')
 
 
-@start_router.message(F.text == '📊 Statistika 📊', IsAdmin(conf.bot.OWNER))
+@start_router.message(F.text == '📊 Statistika 📊')
 async def send_result_in_student(msg: Message):
     groups: list[Group] = await Group.get_all()
     for i in groups:

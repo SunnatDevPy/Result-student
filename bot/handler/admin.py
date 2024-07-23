@@ -14,18 +14,18 @@ from state import GroupForm
 admin_router = Router()
 
 
-@admin_router.message(F.text == '⚙️ Settings ⚙️', IsAdmin(conf.bot.OWNER))
+@admin_router.message(F.text == '⚙️ Settings ⚙️')
 async def settings_handler(msg: Message):
 
     await msg.answer(html_decoration.bold('Settings'), parse_mode='HTML', reply_markup=settings_btn())
 
 
-@admin_router.message(F.text == '👥 Group 👥', IsAdmin(conf.bot.OWNER))
+@admin_router.message(F.text == '👥 Group 👥')
 async def settings_groups_handler(msg: Message):
     await msg.answer(html_decoration.bold('Guruxlar'), parse_mode='HTML', reply_markup=await inl_group())
 
 
-@admin_router.callback_query(F.data.startswith('group_'), IsAdmin(conf.bot.OWNER))
+@admin_router.callback_query(F.data.startswith('group_'))
 async def settings_group_handler(call: CallbackQuery, state: FSMContext):
     await call.answer()
     data = call.data.split('_')
@@ -48,19 +48,19 @@ async def settings_group_handler(call: CallbackQuery, state: FSMContext):
         await call.message.answer(html_decoration.bold('Settings'), parse_mode='HTML', reply_markup=settings_btn())
 
 
-@admin_router.message(GroupForm.name, IsAdmin(conf.bot.OWNER))
+@admin_router.message(GroupForm.name)
 async def settings_group_handler(msg: Message):
     await Group.create(name=msg.text)
     await msg.answer(html_decoration.bold('Yangi guruh qo\'shildi'), parse_mode='HTML')
     await msg.answer(html_decoration.bold('Guruhlar'), parse_mode='HTML', reply_markup=await inl_group())
 
 
-@admin_router.message(F.text == '◀️ Ortga', IsAdmin(conf.bot.OWNER))
+@admin_router.message(F.text == '◀️ Ortga')
 async def back_to_menu(msg: Message):
     await msg.answer(html_decoration.bold('Bosh menu'), parse_mode='HTML', reply_markup=menu_button())
 
 
-@admin_router.callback_query(F.data.startswith('student_'), IsAdmin(conf.bot.OWNER))
+@admin_router.callback_query(F.data.startswith('student_'))
 async def settings_group_handler(call: CallbackQuery, state: FSMContext):
     cashe = await state.get_data()
     data = call.data.split('_')
@@ -84,7 +84,7 @@ async def settings_group_handler(call: CallbackQuery, state: FSMContext):
         await call.message.edit_text(html_decoration.bold('Guruh'), parse_mode='HTML', reply_markup=await inl_group())
 
 
-@admin_router.callback_query(F.data.startswith('ball_'), IsAdmin(conf.bot.OWNER))
+@admin_router.callback_query(F.data.startswith('ball_'))
 async def settings_group_handler(call: CallbackQuery, state: FSMContext):
     data = await state.get_data()
     await call.answer()
