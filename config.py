@@ -32,7 +32,7 @@ class BOT(BaseConfig):
     BOT_TOKEN = os.getenv('BOT_TOKEN')
     ADMIN = os.getenv('ADMIN')
     OWNER = os.getenv('OWNER')
-    LIST = [ADMIN, OWNER]
+    LIST = [int(ADMIN), int(OWNER)]
     PAYMENT = os.getenv('PAYMENT_TOKEN')
     ADMIN_PASS = os.getenv('ADMIN_PASS')
     ADMIN_USERNAME = os.getenv('ADMIN_USERNAME')

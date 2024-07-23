@@ -14,10 +14,11 @@ from state import FormStudent
 
 start_router = Router()
 
+admins = conf.bot.LIST
 
 @start_router.message(CommandStart())
 async def command_start(msg: Message, state: FSMContext):
-    if IsAdmin(conf.bot.OWNER):
+    if msg.from_user.id in admins:
         await msg.answer('Hello admin', reply_markup=menu_button(admin=True))
     else:
         user = await Student.get(msg.from_user.id)
@@ -75,7 +76,8 @@ async def send_result_in_student(msg: Message):
 
 @start_router.message(F.text == '📊 Statistika 📊')
 async def send_result_in_student(msg: Message):
-    groups: list[Group] = await Group.get_all()
-    for i in groups:
-        await msg.answer(html_decoration.bold(await top_group_student(i.id)), parse_mode='HTML')
+    if msg.from_user.id in admins:
+        groups: list[Group] = await Group.get_all()
+        for i in groups:
+            await msg.answer(html_decoration.bold(await top_group_student(i.id)), parse_mode='HTML')
 
