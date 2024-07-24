@@ -44,7 +44,7 @@ async def detail_student(student_id):
         mativatsia = "🟩 Natija yomon emas, ko'proq dars qiling, albatta bundan ham ko'p yutuqlarga erishasiz."
     elif student.ball >= 1 and student.ball <= 5:
         mativatsia = "🟨 Bugungi natija yaxshi emas, ko'proq shug'ullanish kerak."
-    if student.green > 0:
+    if student.red > 0:
         natija = f'Chegirma: {student.red * 5}%'
     return f'''\n
 Ism: {student.first_name}
@@ -84,7 +84,7 @@ async def create_ball(student: Student, ball):
     elif ball >= 1 and ball <= 5:
         await Student.update(student.id, ball=int(ball), yellow=student.yellow + 1)
     student = await Student.get(student.id)
-    if student.green > 0:
+    if student.red > 0:
         natija = f'Chegirma: {student.red * 5}%'
     return f'''
 Ball o'zgardi
