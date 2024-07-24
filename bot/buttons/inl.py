@@ -15,7 +15,7 @@ async def inl_group(admin=True):
         if admin:
             ikb.add(*[InlineKeyboardButton(text='Yangi guruh qo\'shish', callback_data=f'group_add')])
             ikb.add(*[InlineKeyboardButton(text='◀️ Back', callback_data=f'group_back')])
-    ikb.adjust(3, repeat=True)
+    ikb.adjust(2, repeat=True)
     return ikb.as_markup()
 
 
